@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -43,6 +44,10 @@ public class CreateServlet extends HttpServlet {
 
             String content = request.getParameter("content");
             t.setContent(content);
+
+            Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+            t.setCreated_at(currentTime);
+            t.setUpdated_at(currentTime);
 
             // バリデーションを実行してエラーがあったら新規登録のフォームに戻る
             List<String> errors = TaskValidator.validate(t);
